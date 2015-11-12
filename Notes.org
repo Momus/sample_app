@@ -40,3 +40,17 @@ rails generate --- rails destroy
 rake db:migrate --- rake db: rollback
 rake db:migrate VERSION=0
 ***** Custom static pages
+*** Getting started wit Testing                                      :test:
+***** Benefits of Testing
+1. Protect against regressions: functioning code breaking
+2. Allow for code re-factoring (change form without effecting function.)
+3. Act as a client for the application code.
+***** When to Test:
+******* When test is simple compared to application code it tests, write the test first
+******* When desired behavior isn't very clear, write application code first
+******* Security model: err on side of writing tests.
+******* Bug: when found, write test to reproduce it and protect against regressions, then fix it.
+******* Careful about tests for code (such as HTML structure) likely to change in the future.
+******* Write tests before re-factoring code, focusing on testing error-prone code that's especially likely to break.
+******* Generally: write controller and model tests first, and integration tests (tests for functionality across model, views, and controllers) second.
+*** Our first test
