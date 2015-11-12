@@ -1,0 +1,4 @@
+* TODO Chapter 2
+*** 3.2 Static Pages
+    CLOCK: [2015-11-12 Thu 10:21]
+
