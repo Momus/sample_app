@@ -32,4 +32,11 @@ rails generate controller StaticPages home help
       create      app/assets/javascripts/static_pages.coffee
       invoke    scss
       create      app/assets/stylesheets/static_pages.scss
-***** 
+***** controller name as CamelCase                               :c:ruby:
+ creation of a controller file written in snake case
+ Ruby uses CamelCase for class names
+***** Undoing things                                              :rails:
+rails generate --- rails destroy
+rake db:migrate --- rake db: rollback
+rake db:migrate VERSION=0
+***** Custom static pages

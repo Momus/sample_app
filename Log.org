@@ -1,4 +1,7 @@
-* TODO Chapter 2
+* TODO Chapter 3
 *** 3.2 Static Pages
-    CLOCK: [2015-11-12 Thu 10:21]
+    CLOCK: [2015-11-12 Thu 12:17]--[2015-11-12 Thu 12:28] =>  0:11
+    CLOCK: [2015-11-12 Thu 10:21]--[2015-11-12 Thu 12:04] =>  1:43
+*** TODO 3.3 Getting Started with testing
+    CLOCK: [2015-11-12 Thu 15:14]
 
