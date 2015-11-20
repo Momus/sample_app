@@ -129,7 +129,32 @@ end
       <% provide(:title, "Home") %>
       app/views/layouts/application.html.erb
 ***** Setting the root route
-      config/routes.rb
+      #+NAME: config/routes.rb
+      #+BEGIN_SRC ruby
+Rails.application.routes.draw do
 
+  root'static_pages#home'
+  get 'help'  => 'static_pages#help'
+  get 'about' =>'static_pages#about'
 
+end
+      #+END_SRC
+***** Exercises
+      [[https://twitter.com/Rzhevsky/status/667751968450871296][Branched off main]] instead of static-pages
       
+******* Add "setup" function to static pages test                       :t:v:
+        #+NAME: test/controllers/static_pages_controller_test.rb
+        #+BEGIN_SRC ruby
+  def setup
+    @base_title = "Ruby on Rails Tutorial Sample App"
+  end
+
+test "should get home" do
+    get :home
+    assert_response :success
+    assert_select "title", "Home | #{@base_title}"
+  end
+        
+        #+END_SRC
+
+******* 
