@@ -130,6 +130,99 @@ end
       app/views/layouts/application.html.erb
 ***** Setting the root route
       config/routes.rb
+*** Advanced testing setup
+***** minitest reporters
+      #+NAME: test/test_helper.rb
+      #+BEGIN_SRC ruby
+        ENV['RAILS_ENV'] ||= 'test'
+        require File.expand_path('../../config/environment', __FILE__)
+        require 'rails/test_help'
+        require 'minitest/reporters'
+        Minitest::Reporters.use!
 
+        class ActiveSupport::TestCase
+          # Setup all fixtures in test/fixtures/*.yml for all tests in
+          # alphabetical order.
+          fixtures :all
 
-      
+          #Add more helper methods used by all tests here...
+          end
+      #+END_SRC
+***** Backtrace silencer
+      #+NAME: config/initializers/backtrace_silencers.rb
+      #+BEGIN_SRC 
+        # Be sure to restart your server when you modify this file.
+
+        # You can add backtrace silencers for libraries that you're using but don't wish to see in your backtraces.
+        # Rails.backtrace_cleaner.add_silencer { |line| line =~ /my_noisy_library/ }
+        Rails.backtrace_cleaner.add_silencer { |line| line =~ /rvm/ }
+
+        # You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
+        # Rails.backtrace_cleaner.remove_silencers!
+      #+END_SRC
+***** Automated tests with Guard                                          :t:
+******* bundle exec guard init
+16:09:10 - INFO - Writing new Guardfile to /home/kwaku/repos/sample_app/Guardfile
+16:09:10 - INFO - minitest guard added to Guardfile, feel free to edit it
+******* Edit the Guardfile
+        #+NAME: Guadfile
+        #+BEGIN_SRC ruby
+                  # Defines the matching rules for Guard.
+          guard :minitest, spring: true, all_on_start: false do
+            watch(%r{^test/(.*)/?(.*)_test\.rb$})
+            watch('test/test_helper.rb') { 'test' }
+            watch('config/routes.rb')    { integration_tests }
+            watch(%r{^app/models/(.*?)\.rb$}) do |matches|
+              "test/models/#{matches[1]}_test.rb"
+            end
+            watch(%r{^app/controllers/(.*?)_controller\.rb$}) do |matches|
+              resource_tests(matches[1])
+            end
+            watch(%r{^app/views/([^/]*?)/.*\.html\.erb$}) do |matches|
+              ["test/controllers/#{matches[1]}_controller_test.rb"] +
+              integration_tests(matches[1])
+            end
+            watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches|
+              integration_tests(matches[1])
+            end
+            watch('app/views/layouts/application.html.erb') do
+              'test/integration/site_layout_test.rb'
+            end
+            watch('app/helpers/sessions_helper.rb') do
+              integration_tests << 'test/helpers/sessions_helper_test.rb'
+            end
+            watch('app/controllers/sessions_controller.rb') do
+              ['test/controllers/sessions_controller_test.rb',
+               'test/integration/users_login_test.rb']
+            end
+            watch('app/controllers/account_activations_controller.rb') do
+              'test/integration/users_signup_test.rb'
+            end
+            watch(%r{app/views/users/*}) do
+              resource_tests('users') +
+              ['test/integration/microposts_interface_test.rb']
+            end
+          end
+
+          # Returns the integration tests corresponding to the given resource.
+          def integration_tests(resource = :all)
+            if resource == :all
+              Dir["test/integration/*"]
+            else
+              Dir["test/integration/#{resource}_*.rb"]
+            end
+          end
+
+          # Returns the controller tests corresponding to the given resource.
+          def controller_test(resource)
+            "test/controllers/#{resource}_controller_test.rb"
+          end
+
+          # Returns all tests for the given resource.
+          def resource_tests(resource)
+            integration_tests(resource) << controller_test(resource)
+          end
+        #+END_SRC
+******* Add spring/#.pid to .gitignore
+* Chapter 4 Rails-flavored Ruby
+
