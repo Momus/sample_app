@@ -157,4 +157,34 @@ test "should get home" do
         
         #+END_SRC
 
-******* 
+******* Make "Contact Page"
+
+********* Write test RED                                                  :t:
+          #+NAME: test/controllers/static_pages_controller_test.rb
+          #+BEGIN_SRC ruby
+            test "should get contact page" do
+              get :contact
+              assert_response :success
+              assert_select "title", "Contact | #{@base_title}"
+            end
+          #+END_SRC
+
+********* Edit routes
+          #+NAME: config/routes.rb
+          #+BEGIN_SRC ruby
+            get 'contact' => 'static_pages#contact'
+          #+END_SRC
+
+********* Edit controller                                                 :c:
+          def contact
+          end
+
+********* create template                                                 :v:
+          touch app/views/static_pages/contact.html.erb 
+
+********* let template provide title GREEN
+          <% provide(:title, "Contact") %>
+
+***** Advanced testing setup                                              :t:
+
+******* minitest reporters
