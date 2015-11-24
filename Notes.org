@@ -248,3 +248,9 @@ end
         end
       #+END_SRC
 ***** <title><%= full_title(yield(:title)) %></title>
+***  %w[A B C].map(&:downcase)
+     == %w[A B C].map { |char| char.downcase }
+*** p :name # Same output as 'puts :name.inspect'
+    inspect method: returns a string with a literal 
+    representation of the object it’s called on
+*** CSS revisited
