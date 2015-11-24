@@ -225,4 +225,26 @@ end
         #+END_SRC
 ******* Add spring/#.pid to .gitignore
 * Chapter 4 Rails-flavored Ruby
+*** Helpers                                                         :helpers:
+    - provide functions not included in Rails
+***** full_title                                                  :helpers:v:
+      #+NAME: app/helpers/application_helper.rb
+      #+BEGIN_SRC ruby
+          module ApplicationHelper
 
+          #Returns the full title on a per-page basis.
+          def full_title(page_title = '')
+
+            base_title = "Ruby on Rails Tutorial Sample App"
+            if page_title.empty?
+              base_title
+            else
+              page_title + " | " + base_title
+            end
+            
+          end
+
+          
+        end
+      #+END_SRC
+***** <title><%= full_title(yield(:title)) %></title>
