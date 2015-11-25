@@ -253,4 +253,10 @@ end
 *** p :name # Same output as 'puts :name.inspect'
     inspect method: returns a string with a literal 
     representation of the object it’s called on
-*** CSS revisited
+*** 4.4 Ruby Classes
+***** 4.4.5 A user class
+******* code for example user
+        #+NAME: example_user.rb
+        #+BEGIN_SRC ruby
+        
+        #+END_SRC
