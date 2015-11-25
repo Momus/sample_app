@@ -258,5 +258,18 @@ end
 ******* code for example user
         #+NAME: example_user.rb
         #+BEGIN_SRC ruby
-        
+class User
+  attr_accessor :name, :email
+
+  def initialize(attributes = {})
+    @name  = attributes[:name]
+    @email = attributes[:email]
+  end
+
+  def formatted_email
+    "#{@name} <#{@email}>"
+  end
+end        
         #+END_SRC
+*** The word “deified” is a palindrome.
+* 
