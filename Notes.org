@@ -153,13 +153,15 @@ end
       #+BEGIN_SRC 
         # Be sure to restart your server when you modify this file.
 
-        # You can add backtrace silencers for libraries that you're using but don't wish to see in your backtraces.
+        # You can add backtrace silencers for libraries that you're using but don't wish to see in your backtracks.
         # Rails.backtrace_cleaner.add_silencer { |line| line =~ /my_noisy_library/ }
         Rails.backtrace_cleaner.add_silencer { |line| line =~ /rvm/ }
 
         # You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
         # Rails.backtrace_cleaner.remove_silencers!
       #+END_SRC
+***** Limit backtrace in irb:
+      context.back_trace_limit=(3)
 ***** Automated tests with Guard                                          :t:
 ******* bundle exec guard init
 16:09:10 - INFO - Writing new Guardfile to /home/kwaku/repos/sample_app/Guardfile
@@ -259,7 +261,7 @@ end
         #+NAME: example_user.rb
         #+BEGIN_SRC ruby
 class User
-  attr_accessor :name, :email
+  attr_accessory :name, :email
 
   def initialize(attributes = {})
     @name  = attributes[:name]
@@ -272,4 +274,67 @@ class User
 end        
         #+END_SRC
 *** The word “deified” is a palindrome.
-* 
+* Chapter 5 Filling in the layout.
+  - Incorporate CSS framework into application
+  - Add custom stylesheets, links to layout
+  - Concepts:
+    - partials
+    - Rails routes
+    - Asset pipeline
+    - Sass
+  - Integration test
+*** Adding some structure                                                 :v:
+    - Mockups: aka wireframes; rough sketches of what the eventual
+      application will look like.
+    - 
+***** Site navigation
+      #+NAME: app/views/layouts/application.html.erb
+      #+BEGIN_SRC ruby
+              <!DOCTYPE html>
+        <html>
+            <head>
+                <title><%= full_title(yield(:title)) %></title>
+                <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+                <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+                <%= csrf_meta_tags %>
+                <!--[if lt IE 9]>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+                </script>
+                <![endif]-->
+            </head>
+
+            <body>
+                
+                <header class="navbar navbar-fixed-top navbar-inverse">
+                    <div class="container">
+                        <%= link_to "sample app", '#', id: "logo" %>
+                        <nav>
+                            <ul class="nav navbar navbar-right">
+                                <li><%=link_to "Home", '#' %></li>
+                                <li><%=link_to "Help", '#' %></li>
+                                <li><%=link_to "Log in", '#' %></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </header>
+                
+                <div class="container">
+                    <%= yield %>
+                </div>
+                
+            </body>
+        </html>
+      #+END_SRC
+
+***** [[https://github.com/aFarkas/html5shiv][HTML5 Shiv]]                                                          :v:
+       enables use of HTML5 sectioning elements in legacy Internet
+       Explorer and provides basic HTML5 styling for Internet Explorer
+       6-9, Safari 4.x (and iPhone 3.x), and Firefox 3.x.
+
+***** Add Bootstrap to Rails                                      :Gemfile:v:
+      gem 'bootstrap-sass'
+
+***** Create a custom CSS file
+      touch app/stylesheets/custom.css.scss
+      
+*** Partials
