@@ -416,7 +416,7 @@ end
         - [[http://getbootstrap.com/customize/#less-variables][Bootstrap page of Less Variables]]
           pulled in by bootstrap-sass gem
         
-******* 5.15 Initial SCSS file Sassified 
+******* 5.15 Initial SCSS file Sissified 
         #+NAME: app/assets/stylesheets/custom.css.scss
         #+BEGIN_SRC css
                 @import "bootstrap-sprockets";
@@ -532,3 +532,18 @@ end
 *** Layout links                                                        :v:c:
 
 ***** Contact Page: see git branch for Ex. 3?
+
+***** Using named routes
+      <%= link_to "About", about_path %>
+******* Change
+        - app/view/layouts/_header.html.erb
+***** Layout Link tests
+      -Integration test: end-to-end test of behavior
+******* rails generate integration_test site_layout                   :t:v:c:
+        invoke  test_unit
+        create    test/integration/site_layout_test.rb
+
+*** User sign up: A first step. 
+
+***** Users controller
+      
