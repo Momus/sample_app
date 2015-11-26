@@ -1,6 +1,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
+/* Last Modified: Listing 5.15 */
+/* L5.15: mixins, variables, etc. */
+$gray-medium-light: #eaeaea;
+
+
 /* universal */
 /* Listing 5.5 */
 
@@ -16,13 +22,14 @@ textarea {
   resize: vertical;
 }
 
+/*mod L5.15*/
 .center {
   text-align: center;
+  h1 {
+      margin-bottom: 10px;
+  }
 }
 
-.center h1 {
-  margin-bottom: 10px;
-}
 
 /* typography */
 /* Listing 5.6 */
@@ -43,7 +50,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #777;
+  color: $gray-light;
 }
 
 p {
@@ -53,18 +60,49 @@ p {
 
 /* header */
 /* Listing 5.7 */
+/*mod L5.15*/
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
+  &:hover {
+      color: white;
+      text-decoration: none;
+  }
 }
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
+
+
+/* footer */
+/* Also Chapter 5 */
+/*mod L5.15*/
+footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1p solid $gray-medium-light;
+    color: $gray-light;
+    a {
+        color: #555;
+        &:hover {
+            color: #222;
+        }
+    }
+
+    small {
+        float: left;
+    }
+
+    ul {
+        float: right;
+        list-style: none;
+        li {
+            float: left;
+            margin-left: 15px;
+        }
+    }
 }

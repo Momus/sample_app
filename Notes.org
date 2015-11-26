@@ -274,6 +274,8 @@ class User
 end        
         #+END_SRC
 *** The word “deified” is a palindrome.
+
+
 * Chapter 5 Filling in the layout.
   - Incorporate CSS framework into application
   - Add custom stylesheets, links to layout
@@ -337,4 +339,196 @@ end
 ***** Create a custom CSS file
       touch app/stylesheets/custom.css.scss
       
-*** Partials
+***** Partials:
+      - live in app/assets/layouts
+      - start with an underscore
+      - <%= render 'layouts/footer' %>
+        - renders app/assets/layouts/_footer.html.erb
+*** Sass and the asset pipeline.
+***** Manifest files                                                      :v:
+      tell Rails (via the Sprockets gem) how to combine them to form
+      single files. (This applies to CSS and JavaScript but not to
+      images.)
+***** The manifest file for app-specific CSS:
+      #+NAME: app/assets/stylesheets/application.css
+      #+BEGIN_SRC css
+              /*
+         .
+         .
+         .
+         ,*= require_tree .
+         ,*= require_self
+        */
+      #+END_SRC
+      - *= require_tree .  ensures that all CSS files in the
+        app/assets/stylesheets directory (including the tree
+        subdirectories) are included into the application CSS.
+      - *= require_self specifies where in the loading sequence the
+        CSS in application.css itself gets included.
+*****  Preprocessor engines
+       .scss sass; .coffee CoffeeScript .erb Embeded Ruby Can be
+       chained: foobar.js.erb.coffee runs through coffee than ERB
+***** Asset Pipelines: Know them, love them.
+***** Syntactically awesome stylesheets
+******* Nesting
+        Replace
+        #+BEGIN_SRC css
+          .center {
+              text-align: center;
+          }
+
+          .center h1 {
+              margin-bottom: 10px;
+          }
+
+          /* With */
+
+          .center {
+              text-align: center;
+
+              h1 {
+                  margin-bottom 10px;
+              }
+          }
+
+          /* CSS: */
+          #logo{
+              float: left;
+              blah: link;
+          }
+
+          #logo:hover {
+              color: #fff;
+          }
+
+          /* Sass */
+          #logo {
+              float: left;
+              blah: link;
+              &:hover {
+                  color: #fff;
+              }
+          }
+        #+END_SRC
+
+******* Variables
+        - $light-grey: #777;
+        - [[http://getbootstrap.com/customize/#less-variables][Bootstrap page of Less Variables]]
+          pulled in by bootstrap-sass gem
+        
+******* 5.15 Initial SCSS file Sassified 
+        #+NAME: app/assets/stylesheets/custom.css.scss
+        #+BEGIN_SRC css
+                @import "bootstrap-sprockets";
+          @import "bootstrap";
+
+
+          /* Last Modified: Listing 5.15 */
+          /* L5.15: mixins, variables, etc. */
+          $gray-medium-light: #eaeaea;
+
+
+          /* universal */
+          /* Listing 5.5 */
+
+          body {
+            padding-top: 60px;
+          }
+
+          section {
+            overflow: auto;
+          }
+
+          textarea {
+            resize: vertical;
+          }
+
+          /*mod L5.15*/
+          .center {
+            text-align: center;
+            h1 {
+                margin-bottom: 10px;
+            }
+          }
+
+
+          /* typography */
+          /* Listing 5.6 */
+          h1, h2, h3, h4, h5, h6 {
+            line-height: 1;
+          }
+
+          h1 {
+            font-size: 3em;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
+            text-align: center;
+          }
+
+          h2 {
+            font-size: 1.2em;
+            letter-spacing: -1px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: normal;
+            color: $gray-light;
+          }
+
+          p {
+            font-size: 1.1em;
+            line-height: 1.7em;
+          }
+
+          /* header */
+          /* Listing 5.7 */
+          /*mod L5.15*/
+          #logo {
+            float: left;
+            margin-right: 10px;
+            font-size: 1.7em;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            padding-top: 9px;
+            font-weight: bold;
+            &:hover {
+                color: white;
+                text-decoration: none;
+            }
+          }
+
+
+
+          /* footer */
+          /* Also Chapter 5 */
+          /*mod L5.15*/
+          footer {
+              margin-top: 45px;
+              padding-top: 5px;
+              border-top: 1p solid $gray-medium-light;
+              color: $gray-light;
+              a {
+                  color: #555;
+                  &:hover {
+                      color: #222;
+                  }
+              }
+
+              small {
+                  float: left;
+              }
+
+              ul {
+                  float: right;
+                  list-style: none;
+                  li {
+                      float: left;
+                      margin-left: 15px;
+                  }
+              }
+          }
+        #+END_SOC
+
+*** Layout links                                                        :v:c:
+
+***** Contact Page: see git branch for Ex. 3?
