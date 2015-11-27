@@ -416,7 +416,7 @@ end
         - [[http://getbootstrap.com/customize/#less-variables][Bootstrap page of Less Variables]]
           pulled in by bootstrap-sass gem
         
-******* 5.15 Initial SCSS file Sissified 
+******* 5.15 Initial CSS file Sissified 
         #+NAME: app/assets/stylesheets/custom.css.scss
         #+BEGIN_SRC css
                 @import "bootstrap-sprockets";
@@ -545,5 +545,32 @@ end
 
 *** User sign up: A first step. 
 
-***** Users controller
+*** User signup: a first step
+
+***** Users controller                                                    :c:
+      - rails generate controller Users new
+        - create  app/controllers/users_controller.rb
+          route  get 'users/new'
+          invoke  erb
+          create    app/views/users
+          create    app/views/users/new.html.erb
+          invoke  test_unit
+          create    test/controllers/users_controller_test.rb
+          invoke  helper
+          create    app/helpers/users_helper.rb
+          invoke    test_unit
+          invoke  assets
+          invoke    coffee
+          create      app/assets/javascripts/users.coffee
+          invoke    scss
+          create      app/assets/stylesheets/users.scss
+      - Test should pass
+        
       
+***** Linking the button to the signup page.
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+
+***** new.html.erb                                                        :v:
+      <% provide(:title, 'Sign up') %>
+
+*** 
