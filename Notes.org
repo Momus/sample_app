@@ -573,4 +573,16 @@ end
 ***** new.html.erb                                                        :v:
       <% provide(:title, 'Sign up') %>
 
-*** 
+*** Exercizes
+
+***** 2: Verify page title correct on sign up page             :diff:t:v:
+I put this test in 
+#+NAME: users_controller_test.rb
+#+BEGIN_SRC ruby
+    test "should get signup" do
+      get :signup
+      assert_response :success
+      assert_select "title", "Sign up | Ruby on Rails Turorial Sample App"
+#+END_SRC
+
+***** 
