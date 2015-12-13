@@ -573,7 +573,7 @@ end
 ***** new.html.erb                                                        :v:
       <% provide(:title, 'Sign up') %>
 
-*** Exercizes
+*** Exercises
 
 ***** 2: Verify page title correct on sign up page             :diff:t:v:
 I put this test in 
@@ -584,5 +584,7 @@ I put this test in
       assert_response :success
       assert_select "title", "Sign up | Ruby on Rails Turorial Sample App"
 #+END_SRC
+Remember: the ":new" refers to the controller method, not the URL routed,
+"GET" is not the HTTP verb here.
 
 ***** 
