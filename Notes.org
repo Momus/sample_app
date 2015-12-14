@@ -587,4 +587,78 @@ I put this test in
 Remember: the ":new" refers to the controller method, not the URL routed,
 "GET" is not the HTTP verb here.
 
-***** 
+* Chapter 6 Modeling Users
+
+*** Database Migrations
+
+***** Create Users model                                                  :m:
+      rails generate model User name:string email:string
+      bundle exec rails g  model User name:string email:string
+      invoke  active_record
+      create    db/migrate/20151213150510_create_users.rb
+      create    app/models/user.rb
+      invoke    test_unit
+      create      test/models/user_test.rb
+      create      test/fixtures/users.yml
+
+******* Migrating:
+        This is Rinari! M-x rinari-rake db:migrate
+        -*- mode: ruby-compilation; default-directory: "~/repos/sample_app/" -*-
+        RubyComp started at Sun Dec 13 08:18:44
+
+        rake db\:migrate
+        == 20151213150510 CreateUsers: migrating ==========================
+        -- create_table(:users)
+        -> 0.0015s
+        == 20151213150510 CreateUsers: migrated (0.0015s) =================
+
+
+        RubyComp finished at Sun Dec 13 08:18:47
+
+
+******* Magic Columns                                         :m:magic:
+        class CreateUsers <ActiveRecord::Migration
+        def change
+        create_table :users do |t|
+        t.timestamps null: false 
+        end end end
+        This sets up two tables: created at and updated at
+        
+******* id column                                             :m:magic:
+        Automagically created by Rails, identifies each row uniquely
+        
+******* Reverting:                                               :m:qv:
+        most migrations are reversible:
+        bundle exec rake db:rollback or
+        bundle exec rake db:migrate VERSION=0
+        (make a sequential list of migrations to make sure
+        you're rolling back to the right one.
+
+***** The model file lives in /app/models/user.rb
+
+***** Creating user objects
+
+******* user = User.new(name: "me", email: "myself")               :qv:
+        Has .valid? method, inherited from ActiveRecord
+        - user.save : puts it into database (sandbox mode!)
+        - User.fifth works, but not User.sixth or User.find(-1)
+        - .update_attributes .save and .reload are handy
+*** User validations                                         :m:validation:
+    Enforce constraints on their values
+    - presence
+    - length
+    - format
+    - uniqueness
+***** Validations are added to the model's class definition
+      using the validate method.
+     #+NAME: app/models/user.rb
+     #+BEGIN_SRC ruby
+      class User < ActiveRecord::Base
+        validates :name, presence: true
+      end
+     #+END_SRC
+***** Testing for Validity of Email address
+      - First add test to make sure validation accepts
+        valid addresses: should be green
+      - Then add tests for invalidity of various email addresses
+***** Uniqueness Validation
