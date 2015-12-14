@@ -590,7 +590,6 @@ Remember: the ":new" refers to the controller method, not the URL routed,
 * Chapter 6 Modeling Users
 
 *** Database Migrations
-
 ***** Create Users model                                                  :m:
       rails generate model User name:string email:string
       bundle exec rails g  model User name:string email:string
@@ -661,4 +660,37 @@ Remember: the ":new" refers to the controller method, not the URL routed,
       - First add test to make sure validation accepts
         valid addresses: should be green
       - Then add tests for invalidity of various email addresses
-***** Uniqueness Validation
+***** Uniqueness Validation :unique with CAVEAT!!
+       - REMEMBER TO MAKE CASE INSENSITIVE
+       - Active Record uniqueness validation DOES NOT
+         GUARANTEE UNIQUENESS AT THE DB LEVEL
+         - Two requests in quick succession:
+           1. creates a user in memory passes validation get saved
+           2. also creates in memory, also passes because 1
+              not yet saved.
+         - Result: to records with same email in spite of validation
+         - SOLUTION: Give the field an Index!
+******* Database indices                                          :db:
+********* Should a column have an Index?
+*********** Will it be used to _find_ a record?
+************* Avoid _full-table_scan_
+*********** Should the data each entry have uniqueness?
+********* can be added to existing column with a migration:
+- rails g migration add_index_to_users_email
+  invoke  active_record
+      create    db/migrate/20151214194221_add_index_to_users_email.rb
+- migration file 
+#+NAME: db/migrate/[time stamp]_add_index_to_users_email.rb
+#+BEGIN_SRC 
+class AddIndexToUsersEmail < ActiveRecord::Migration
+  def change
+    add_index :users, :email, unique: true
+  end
+end
+#+END_SRC
+********* Will break tests if fixtures are not unique!!
+********* Callback: use to ensure                   :qv:
+ email uniqueness by down-casing before save
+*********** Use the before_save method in models/user.rb
+*** Adding a secure Password
+***** 
