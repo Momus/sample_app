@@ -693,4 +693,22 @@ end
  email uniqueness by down-casing before save
 *********** Use the before_save method in models/user.rb
 *** Adding a secure Password
-***** 
+***** [[http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html][has_secure_password]] ActiveModel::SecurePassword                     :m:
+added to the user model. Includes:
+- password_digest attribute
+- virtual attributes: password and password_confirmation
+  (presence validation on object creation and match validation
+- authenticate method: returns the user when correct, false else.
+
+******* has_secure_password needs a password_digest attribute
+rails g migration add_password_digest_to_users password_digest:string
+
+******* add bcrypt to Gemfile                                     :gem:
+(and don't forget to add password attribute to user test)
+*** Minimum password standards
+- minimum length
+- not blanok
+***** test/models/user_test.rb                                      :m:t:
+
+*** 
+
