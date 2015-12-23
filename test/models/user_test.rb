@@ -9,17 +9,14 @@ class UserTest < ActiveSupport::TestCase
                      password_confirmation: "foobar")
   end
 
-  test "should be valid" do
+  test "user should be valid" do
     assert @user.valid?
   end
 
+
+  ## name:
   test "name should be present" do
     @user.name = "   "
-    assert_not @user.valid?
-  end
-
-  test "email should be present" do
-    @user.email = "   "
     assert_not @user.valid?
   end
 
@@ -28,6 +25,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not  @user.valid?
   end
 
+  
+  ## email:
+  
+  test "email should be present" do
+    @user.email = "   "
+    assert_not @user.valid?
+  end
+  
   test "email should not be too long" do
     @user.email = "a" * 244 + "@example.com"
     assert_not @user.valid?
@@ -45,14 +50,20 @@ class UserTest < ActiveSupport::TestCase
 
   test "email validation should reject  invalid addresses" do
     invalid_addresses = %w[user@example,com U_SE_R_at_foo.com alice+bob@baz.
-                         first.last@fo_o.jp A_US-ER@foo+bar.Ni.org]
+                         first.last@fo_o.jp A_US-ER@foo+bar.Ni.org user@example..com]
     invalid_addresses.each do | invalid_address |
       @user.email = invalid_address
       assert_not @user.valid?, "#{invalid_address.inspect} should NOT be valid"
     end
-    
   end
 
+  test "email should be downcased on save" do
+    @user.email = "CAPTEST@EXAMPLE.COM"
+    @user.save
+    @user.reload
+    assert_equal @user.email, "captest@example.com"
+  end
+  
   test "email address is unique" do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
@@ -60,6 +71,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not  duplicate_user.valid?
   end
 
+  
+  ##password:
   test "password should be present (non blank)" do
     @user.password = @user.password_confirmation = " " * 6
     assert_not @user.valid?
