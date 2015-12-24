@@ -710,5 +710,7 @@ rails g migration add_password_digest_to_users password_digest:string
 - not blanok
 ***** test/models/user_test.rb                                      :m:t:
 
-*** 
+* Chapter 7 Sign up
+
+*** Showing users
 
