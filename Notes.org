@@ -756,4 +756,6 @@ $gray-medium-light: #eaeaea;
 ***** reset database                                         :db:migrate:
       bundle exec rake db:migrate:reset
 ***** Using form_for                                             :v:form:
+      see new.html.erb
+*** A working form
 
