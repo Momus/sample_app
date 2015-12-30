@@ -714,3 +714,46 @@ rails g migration add_password_digest_to_users password_digest:string
 
 *** Showing users
 
+***** Debug and Rails env
+      <%= debug(params) if Rails.env.development? %>
+******* Add some debug styles using Sass mixin                    :css:
+        #+NAME:app/assets/stylesheets/custom.css.scss
+        #+BEGIN_SRC css
+
+$gray-medium-light: #eaeaea;
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+.
+.
+.
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+        
+        #+END_SRC
+***** User resource
+      add to routes.rb 'resouces :users'
+      gives all RESTful Users resources.
+***** brcypt-ruby gem must be in Gemfile for bcrypt to work:        :gem:
+      gem 'bcrypt'
+      gem 'bcrypt-ruby'
+***** Debugger
+      gem byebug
+      add method call 'debugger' to controller
+      seems to freeze Rinari-server
+*** A Gravatar image & sidebar
+*** Signup form
+***** reset database                                         :db:migrate:
+      bundle exec rake db:migrate:reset
+***** Using form_for                                             :v:form:
+

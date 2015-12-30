@@ -20,6 +20,4 @@ class User < ActiveRecord::Base
             presence: true,
             length: {minimum: 6, maximum: 72}
 
-
-
 end
