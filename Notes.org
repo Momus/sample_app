@@ -757,5 +757,25 @@ $gray-medium-light: #eaeaea;
       bundle exec rake db:migrate:reset
 ***** Using form_for                                             :v:form:
       see new.html.erb
-*** A working form
+***** A working form
+      The "name" attribute in the Erb forms tag below
+      <input id="user_email" name="user[email]" type="email" />
+      gives you :params => {"user" => {"email" => "formcontent"}}
+***** Strong parameters
+      @user = User.new(params[:user]) no longer works as it is insecure
+      As of verion 4.0, Rails uses strong parameters.
+      Required and premitted parameters must be specified.
+      In controller, use params.require().permit()
+***** Signup errror messages
+       user.errors.full_messages
+       => ["Email is invalid", "Password is too short (minimum is 6
+       characters)"]
+******* Error message partial
+        Rails convention of uses a dedicated shared/ directory for
+        partials expected to be used in views across multiple
+        controllers.
+        _error_messages.html.erb goes there
+***** Test for invalid submission
+
+
 
