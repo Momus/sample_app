@@ -780,6 +780,17 @@ $gray-medium-light: #eaeaea;
       Running via Spring preloader in process 18434
       invoke  test_unit
       create    test/integration/users_signup_test.rb
-      
+*** Successful signups                                                :c:v:
+    If save suceeds, redirect to user's profile.
+    use the redirect_to method in users_controller.rb
+    redirect_to user_url(@user) == redirect_to @user
+*** The flash
+    Temporaty message on a web page, usually goes away on reload.
+    Rails convention: :success key for message indicating sucessful
+    result.
+    /app/controllets/users_controller.rb
+    flash[:sucess] = "Welocome to the Sample App!"
+    goes into 
+    app/views/layouts/application.html.erb
 
 
