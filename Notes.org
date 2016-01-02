@@ -795,6 +795,13 @@ $gray-medium-light: #eaeaea;
 *** The first signup                                                   :qv:
     post_via_redirect vs post
 *** Professional-grade deployment
-    
+***** SSL in production
+      configure SSL use site-wide:
+      config/environments/production.rb
+      config.force_ssl = true
+***** Production webserver
+      puma gem
+      config/puma.rb
+      Procfile in root directory of app
 
 
