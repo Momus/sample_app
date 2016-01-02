@@ -792,5 +792,9 @@ $gray-medium-light: #eaeaea;
     flash[:sucess] = "Welocome to the Sample App!"
     goes into 
     app/views/layouts/application.html.erb
+*** The first signup                                                   :qv:
+    post_via_redirect vs post
+*** Professional-grade deployment
+    
 
 
