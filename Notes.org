@@ -775,7 +775,11 @@ $gray-medium-light: #eaeaea;
         partials expected to be used in views across multiple
         controllers.
         _error_messages.html.erb goes there
-***** Test for invalid submission
-
+***** Test for invalid submission                                     :t:
+      rails generate integration_test users_signup
+      Running via Spring preloader in process 18434
+      invoke  test_unit
+      create    test/integration/users_signup_test.rb
+      
 
 
