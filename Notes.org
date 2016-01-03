@@ -803,5 +803,18 @@ $gray-medium-light: #eaeaea;
       puma gem
       config/puma.rb
       Procfile in root directory of app
+* Chapter 8 Log in, Log out
+  - Three most common models for login/logout behavior on web:
+    - "Forgetting" user on browser close
+    - Automatically remembering users
+    - Optionally remembering users based on "souvien-moi" check box.
+  - Allows authorization model based on login status & id
+    - update site header with login/log out/profile links
+    - (Ch9) only logged-in users can visit their index page
+    - (Ch9) only correct user can edit self-info
+    - (Ch9) only admin user can delete another user from database
+    - (Ch11) id of user used to create micro-posts
+    - (Ch12) current user can follow feed of other app users
+*** Sessions
 
 
