@@ -815,6 +815,43 @@ $gray-medium-light: #eaeaea;
     - (Ch9) only admin user can delete another user from database
     - (Ch11) id of user used to create micro-posts
     - (Ch12) current user can follow feed of other app users
-*** Sessions
+*** Sessions:
+    - As a RESTful resource:
+      - CREATE: Logging in
+      - DESTROY: Logging out
+    - Data persistance through cookies
+***** Sessions controller
+      - REST Actions:
+        - new action: login form
+        - POST request to create action: logging in
+        - DELETE request to destroy action: logging out
+      - rails generate controller Sessions new
+        generating controller also creates views, which is why
+        only "new" is specified.
+        - output
+          create  app/controllers/sessions_controller.rb
+          route  get 'sessions/new'
+          invoke  erb
+          create    app/views/sessions
+          create    app/views/sessions/new.html.erb
+          invoke  test_unit
+          create    test/controllers/sessions_controller_test.rb
+          invoke  helper
+          create    app/helpers/sessions_helper.rb
+          invoke    test_unit
+          invoke  assets
+          invoke    coffee
+          create      app/assets/javascripts/sessions.coffee
+          invoke    scss
+          create      app/assets/stylesheets/sessions.scss
+      - add routes to routes.rb
+
+
+***** Login form
+      form_for(@user) --- won't work
+      form_for(:session, url: login_path) is what we need,
+
+***** 
+      
 
 
