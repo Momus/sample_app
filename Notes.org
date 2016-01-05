@@ -851,6 +851,18 @@ $gray-medium-light: #eaeaea;
       form_for(@user) --- won't work
       form_for(:session, url: login_path) is what we need,
 
+***** Finding and autheniticating a user
+      re-rendering a template with render doesn’t count as a
+      request. The result is that the flash message persists one
+      request longer than we want.  SOLUTION: replace flash with
+      flash.now flash.now, which is specifically designed for
+      displaying flash messages on rendered pages. Unlike the contents
+      of flash, the contents of flash.now disappear as soon as there
+      is an additional request,
+      
+***** A flash test                                                    :t:
+      rails generate integration_test users_login
+
 ***** 
       
 
