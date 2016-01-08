@@ -889,5 +889,22 @@ end
       - can't use User.find(session[:user_id]) returns
         exception for non-logged in (nil UID) users.
       - use .find_by because that returns nil if not found.
+***** changing the layout links 
+      use an if/else statement in embedded ruby (erb)
+      need a logged_in? Boolean method
+
+***** BOOTSTRAP                                               :bootstrap:
+      To activate the dropdown menu, we need to include Bootstrap’s
+      custom JavaScript library in the Rails asset pipeline’s
+      application.js file, as shown:
+      #+NAME: app/assets/javascripts/application.js
+      #+BEGIN_SRC JavaScript
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap
+//= require turbolinks
+//= require_tree .
+      #+END_SRC
+
 
 
