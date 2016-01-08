@@ -863,7 +863,19 @@ $gray-medium-light: #eaeaea;
 ***** A flash test                                                    :t:
       rails generate integration_test users_login
 
-***** 
+*** Logging in
+    -log user in with temp session cookie that expires on browser
+    close
+    Will need to use Rails module facility to pack functions
+    app/controllers/application_controller.rb
+    include SessionHelper
+
+***** log_in method
+      will be used in different places, so goes in a helper
+      #+NAME: app/helpers/session_helper.rb
+      #+BEGIN_SRC ruby
+
+      #+END_SRC
       
 
 
