@@ -868,14 +868,26 @@ $gray-medium-light: #eaeaea;
     close
     Will need to use Rails module facility to pack functions
     app/controllers/application_controller.rb
-    include SessionHelper
+    include SessionsHelper
 
 ***** log_in method
       will be used in different places, so goes in a helper
       #+NAME: app/helpers/session_helper.rb
       #+BEGIN_SRC ruby
+module SessionsHelper
 
+  def log_in(user)
+  session[:user_id] = user.id
+  end
+  
+end
       #+END_SRC
       
+***** current_user
+      find current user in database corresponding to session id
+      then <%= current_user.name %> is possible
+      - can't use User.find(session[:user_id]) returns
+        exception for non-logged in (nil UID) users.
+      - use .find_by because that returns nil if not found.
 
 
