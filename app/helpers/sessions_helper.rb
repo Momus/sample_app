@@ -13,5 +13,11 @@ module SessionsHelper
     !current_user.nil?
   end
   
+  def log_out
+    ## TODO: Question  session[:user_id] = nil -- My idea. Seems to work
+    session.delete(:user_id)
+    @current_user = nil
+  end
+
   
 end

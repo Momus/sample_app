@@ -917,3 +917,9 @@ end
         fixtures are interesting things
 ***** Login upon signup:
       Just call log_in on User.create
+*** Logging out
+    destroy in session controller
+    log_out in sessions_helper
+    root_path: returns a relative URL
+    root_url : returns an absolute URI
+    both seem to work.
