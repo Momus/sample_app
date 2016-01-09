@@ -914,4 +914,6 @@ end
       4. Verify that logout link appears
       5. verify that a profile link appears
 ******* Add a digest method for use in fixtures
-
+        fixtures are interesting things
+***** Login upon signup:
+      Just call log_in on User.create
