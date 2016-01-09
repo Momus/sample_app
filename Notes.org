@@ -894,17 +894,24 @@ end
       need a logged_in? Boolean method
 
 ***** BOOTSTRAP                                               :bootstrap:
-      To activate the dropdown menu, we need to include Bootstrap’s
+      To activate the drop down menu, we need to include Bootstrap’s
       custom JavaScript library in the Rails asset pipeline’s
       application.js file, as shown:
       #+NAME: app/assets/javascripts/application.js
       #+BEGIN_SRC JavaScript
 //= require jquery
-//= require jquery_ujs
+//= require jquery_us
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
       #+END_SRC
 
-
+***** Testing layout changes                                          :t:
+      Integration test to:
+      1. visit the login path
+      2. Post valid info to sessions path
+      3. Verify that login link disappears
+      4. Verify that logout link appears
+      5. verify that a profile link appears
+******* Add a digest method for use in fixtures
 
