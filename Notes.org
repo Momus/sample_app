@@ -921,5 +921,68 @@ end
     destroy in session controller
     log_out in sessions_helper
     root_path: returns a relative URL
-    root_url : returns an absolute URI
+    root_url : returns an absolute URL
     both seem to work.
+*** Remember me
+    1. Remember users by default until explicit log out.
+    2. Then enable a "remember me" check-box that allows opt out.
+***** Remember token and digest
+      - Persistence of a sessions enabled by generating a "remember
+        token" & using it to manufacture cookies with a "remember
+        digest" for authenticating token.
+      - Four main threats:
+        1. packet sniffers detect cookies on insecure networks
+           - use SSL sitewide
+        2. compromising database containing tokens
+           - store hash digest of token, not token itself.
+        3. [[https://en.wikipedia.org/wiki/Cross-site_scripting][Cross-site scripting]]
+           - Rails automatically escapes content inserted into view
+             templates
+        4. Physical access to machine with logged in user.
+           - Tokens change between login/out sessions. Any potentially
+             sensative information placed in the browser is
+             _cryptygraphically_ _signed_ 
+      - Five step plan for persistent sessions:
+        1. Create remember token: string of random digits
+        2. Place token in browser cookie with advanced expiry date
+        3. Save hash digest of the token to the database
+        4. Place encrypted version of the user's id in browser cookies
+        5. When cookie contains a persistent user id:
+           1. Decrypt id, use it to find the user in the database.
+           2. Verify that remember token cookie matches stored digest
+
+******* add remember_digest attribute to the User model:
+        rails generate migration add_remember_digest_to_users remember_digest:string
+
+        |-----------------+----------|
+        | users           |          |
+        |-----------------+----------|
+        | id              | integer  |
+        | name            | string   |
+        | email           | string   |
+        | created_at      | datetime |
+        | updated_at      | datetime |
+        | password_digest | string   |
+        | remember_digest | string   |
+        |-----------------+----------|
+
+
+rake db\:migrate
+== 20160110014039 AddRememberDigestToUsers: migrating ====
+-- add_column(:users, :remember_digest, :string)
+   -> 0.0005s
+== 20160110014039 AddRememberDigestToUsers: migrated (0.0006s) =
+
+******* What string to use?
+        urlsafe_base64 method from Randomness module sounds nice
+        Returns a random string of 22 characters composed of
+        A..Za..z0..9 - and _ (64 possibilities) that are safe in URLs
+
+******* Adding a method for generating tokens       :virtual_attribute:
+        1. added def User.new_token to user model
+        2. since remember token is not stored in database, a virtual
+           attribute must be created in the User model:
+           attr_accessor :remember_token
+           def remember
+           ... end
+***** 8.4.2 Login with remembering
