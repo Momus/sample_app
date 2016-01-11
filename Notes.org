@@ -1011,5 +1011,51 @@ rake db\:migrate
       NB: there's a User.forget (no params) function in user.rb
       There is a different function forget(user) in sessions_helper
       that also deletes the cookies.
-***** 
-
+***** 8.4.4 Two subtle bugs
+      - Two problems left:
+        - Multiple Browser Windows/Tabs Open :: Clicking "log out" in
+             second window/tab would result in an error
+          - Solution :: Only log out logged in users
+        - Multiple browsers have open session :: valid ID cookies still
+          - Browser1 :: logs out.
+            1. set remember_digest = nil,
+            2. App will still work both conds of current_user are false
+          - Browser 2 :: user_id _cookie_ still present therefore:
+            1. user can still be pulled out of database:
+               elsif (user_id = cookies.signed[:user_id] #Still true
+                 user = User.find_by(id: user_id) #Should still work
+            2. inner conditonal evaluated: ifuser &&
+               user.authenticated?(...
+               - since user /= nil, the second expression is evaluated
+                 user.authenticated?(cookies[:remember_token]
+                 the call looks like this:
+                 BCrypt::Password.new(remember_digest).is_password?(remember_token)
+                 but remember_digest is nil, which makes BCrypt raises
+                 exception.
+                 - The exception looks like this:
+                   #+BEGIN_SRC ruby
+                   BCrypt::Errors::InvalidHash:
+                   #+END_SRC
+          - Soluton :: authenticated? should return false instead.
+******* A test for user logout.
+        #+NAME: test/integration/users_login_test.rb
+        #+BEGIN_SRC ruby
+         # Simulate a user clicking logout in a second window.
+         delete logout_path
+        #+END_SRC
+********* solution:
+          #+NAME: app/controllers/sessions_controller.rb
+          #+BEGIN_SRC ruby
+           log_out if logged_in?
+          #+END_SRC
+******* Second problem is easier to check with user model test:
+        #+NAME: test/models/user_test.rb
+        #+BEGIN_SRC ruby
+        test "authenticated? should return false for a user with nil digest" do
+          assert_not @user.authenticated('')
+        end
+        #+END_SRC
+********* soluton:
+           def authenticated?(remember_token)
+             return false if remember_digest.nil?
+***** 8.4.5 "Remember me" checkbox
