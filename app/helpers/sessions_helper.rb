@@ -18,21 +18,29 @@ module SessionsHelper
 
   end
 
-  def logged_in?
-    !current_user.nil?
-  end
-  
-  def log_out
-    ## TODO: Question  session[:user_id] = nil -- My idea. Seems to work
-    session.delete(:user_id)
-    @current_user = nil
-  end
-
   def remember(user)
     user.remember
     cookies.permanent.signed[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
   end
   
+  def logged_in?
+    !current_user.nil?
+  end
+
+  def forget(user)
+    user.forget
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
+  
+  def log_out
+    forget(current_user)
+    ## TODO: Question  session[:user_id] = nil -- My idea. Seems to work
+    session.delete(:user_id)
+    @current_user = nil
+  end
+
   
 end

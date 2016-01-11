@@ -1005,4 +1005,11 @@ rake db\:migrate
          retrieve (and log in) the user corresponding to the persistent session.
 
 ***** 8.4.3 Forgetting users
+      user.forget undoes user.remember by updating demember digest
+      with nil
+      app/models/user.rb
+      NB: there's a User.forget (no params) function in user.rb
+      There is a different function forget(user) in sessions_helper
+      that also deletes the cookies.
+***** 
 
