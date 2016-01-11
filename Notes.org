@@ -986,3 +986,23 @@ rake db\:migrate
            def remember
            ... end
 ***** 8.4.2 Login with remembering
+      - using uesr.remember create persistant session cookie on user's browser
+      - cookies contain:
+        1. value
+        2. optional *expires* date
+      - Example cookie:
+        cookies[:remember_token] = { value: remember_token,
+                                     expiresL 20.years_from_now.utc }
+      - This is so common that Rails has a permanent method ("permanent" == 20 years?)
+        cookies.permanet[:remember_token] remember_token
+      - cookies.signed[:user_id] encrypts the cookie before placing it in browser
+      
+******* there is a self.remember method in User class, and a remember(user) method in session helper
+
+******* Fix current_user method so that it knows about sessions stored in cookies.
+         1. Retrieve the user from the temporary session if session[:user_id] exists,
+         2. Otherwise we should look for cookies[:user_id] to
+         retrieve (and log in) the user corresponding to the persistent session.
+
+***** 8.4.3 Forgetting users
+
