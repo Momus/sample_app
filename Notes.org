@@ -1059,3 +1059,8 @@ rake db\:migrate
            def authenticated?(remember_token)
              return false if remember_digest.nil?
 ***** 8.4.5 "Remember me" checkbox
+******* Add checkbox to app/views/sessions/new.html.erb
+******* Add a little CSS magic
+******* Then a onle-line implimentation in sessions_controller.rb
+         params[:session][:remember_me] == '1' ?  remember(user) : forget(user)
+***** 
