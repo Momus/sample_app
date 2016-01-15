@@ -1063,4 +1063,7 @@ rake db\:migrate
 ******* Add a little CSS magic
 ******* Then a onle-line implimentation in sessions_controller.rb
          params[:session][:remember_me] == '1' ?  remember(user) : forget(user)
-***** 
+***** Remember tests
+******* Testing the "remember me" box                                    :qv:
+        - sesson method not available outside integration tests? nor
+          post_via_redirect
