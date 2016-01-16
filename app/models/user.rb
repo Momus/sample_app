@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   has_secure_password  
   validates :password,
             presence: true,
-            length: {minimum: 6, maximum: 72}
+            length: {minimum: 6, maximum: 72},
+            allow_nil: true
 
 
   def User.digest(string)
