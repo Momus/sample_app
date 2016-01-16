@@ -1089,4 +1089,33 @@ rake db\:migrate
       - edit the controller
         #+NAME: app/controllers/users_controller.rb
           
+***** Testing unsuccessful edits
+      - rails generate integration_test users_edit
+        Running via Spring preloader in process 31624
+            invoke  test_unit
+            create    test/integration/users_edit_test.rb
+      - simple test of an unsuccessful edit
+        #+NAME: test/integration/users_edit_test.rb
+        #+BEGIN_SRC ruby
+require 'test_helper'
+
+class UsersEditTest < ActionDispatch::IntegrationTest
+
+  def setup
+    @user = users(:michael)
+  end
+
+  test "unsuccessful edit" do
+    get edit_user_path(@user)
+    assert_template 'users/edit'
+    patch user_path(@user), user: { name:  "",
+                                    email: "foo@invalid",
+                                    password:              "foo",
+                                    password_confirmation: "bar" }
+    assert_template 'users/edit'
+  end
+end
+        
+        #+END_SRC
+***** Successful edits (with TDD)
 ***** 
