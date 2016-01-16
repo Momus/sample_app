@@ -1067,3 +1067,19 @@ rake db\:migrate
 ******* Testing the "remember me" box                                    :qv:
         - sesson method not available outside integration tests? nor
           post_via_redirect
+* Chapter 9 Updating, showing and deleting users
+  Complete REST actons for Users resource by adding:
+  - edit
+  - update
+  - index
+  - destroy
+*** Updating Users
+    - *edit* : action rendering a view to edit users
+    - *update* : responds to a PATCH request
+
+***** Edit form
+      target="_blank" in the Gravatar link is a neat trick to get the
+      browser to open the page in a new window or tab, which is
+      convenient behavior when linking to a third-party site.
+
+***** 
