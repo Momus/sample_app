@@ -1082,4 +1082,11 @@ rake db\:migrate
       browser to open the page in a new window or tab, which is
       convenient behavior when linking to a third-party site.
 
+***** Unsucessful edits
+      - create update action
+        - uses update_attributes method
+        - params hash
+      - edit the controller
+        #+NAME: app/controllers/users_controller.rb
+          
 ***** 
