@@ -1126,3 +1126,17 @@ end
       - Test that before_filter works in the controller test
         #+NAME: test/controllers/users_controller_test.rb
 ***** Requiring the right user.
+***** Friendly forwarding
+      - Currently: 
+        1. non-logged in user
+        2. visits edit page
+        3. redirected to login
+        4. redirected to profile
+      - We want: 4 to redirect back to edit if user got redirected by
+        step 3.
+      - Application code will be complicated, but test is simple:
+        #+NAME: test/integration/users_edit_test.rb
+      - Need two methods store_location and redirect_back_or
+        #+NAME: app/helpers/sessions_helper.rb
+*** Showing all users
+        
