@@ -1125,4 +1125,4 @@ end
       - Fix integration test test/integration/users_edit_test.rb
       - Test that before_filter works in the controller test
         #+NAME: test/controllers/users_controller_test.rb
-    
+***** Requiring the right user.
