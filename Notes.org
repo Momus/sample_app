@@ -1144,6 +1144,28 @@ end
       
       
 ***** Sample users                                                      :gem:
-      - Add Faker gem to the gemfile
-***** 
+      - Add Faker gem to the gemfile gem 'faker'
+      - Add Rake task to seed database with sample users
+        #+NAME: file location: db/seeds.rb
+        #+BEGIN_SRC ruby
+          #Make one example user
+          User.create!(name:  "Example User",
+                       email: "example@railstutorial.org",
+                       password:              "foobar",
+                       password_confirmation: "foobar")
+          #Then 99 more
+          99.times do |n|
+            name  = Faker::Name.name
+            email = "example-#{n+1}@railstutorial.org"
+            password = "password"
+            User.create!(name:  name,
+                         email: email,
+                         password:              password,
+                         password_confirmation: password)
+          end
+        #+END_SRC
+      - create! method raises exception rather than false if creation fails
+        1. bundle exec rake db:migrate:reset
+        2. bundle exec rake db:seed
+***** Pagination
           
