@@ -1167,5 +1167,13 @@ end
       - create! method raises exception rather than false if creation fails
         1. bundle exec rake db:migrate:reset
         2. bundle exec rake db:seed
-***** Pagination
+***** Pagination                                                        :gem:
+      - gem 'will_paginate'
+      - add code to index view
+        #+NAME: app/views/users/index/html.erb
+        #+BEGIN_SRC ruby
+                  <%= will_paginate %>
+        #+END_SRC
+***** 
+      
           
