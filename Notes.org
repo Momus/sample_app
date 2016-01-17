@@ -1118,4 +1118,11 @@ end
         
         #+END_SRC
 ***** Successful edits (with TDD)
-***** 
+*** Authorization
+    Allow only the user themselves to edit their own profile
+***** Requiring logged-in users
+      - Implement a _before_filter_ in Users controller.
+      - Fix integration test test/integration/users_edit_test.rb
+      - Test that before_filter works in the controller test
+        #+NAME: test/controllers/users_controller_test.rb
+    
