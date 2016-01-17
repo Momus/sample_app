@@ -1139,4 +1139,11 @@ end
       - Need two methods store_location and redirect_back_or
         #+NAME: app/helpers/sessions_helper.rb
 *** Showing all users
-        
+    index action
+***** Users index
+      
+      
+***** Sample users                                                      :gem:
+      - Add Faker gem to the gemfile
+***** 
+          
