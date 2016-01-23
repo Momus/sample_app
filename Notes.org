@@ -1174,6 +1174,55 @@ end
         #+BEGIN_SRC ruby
                   <%= will_paginate %>
         #+END_SRC
+***** TODO Users index test
+      1. Log in
+      2. Visit index path
+      3. verify first page of users is present
+      4. confirm pagination is present
+******* Adding users to fixtures: 
+        use erb to generate them in fixtures/users.yml
+******* rails generate integration_test users_index
+        invoke  test_unit
+        create    test/integration/users_index_test.rb
+******* TODO BUG TODO: 
+        TEST FAIL
+        test/integration/users_index_text.rb
+        assert_select 'div.pagination'
+        WT!!!
+***** Partial re-factoring.
+      re-factor users/index page to use compact views.
+      - <%= render user %> iterates through the User model applying
+        the _user.html.erb partial.
+*** Deleting users
+    - Last REST action to be implemented: *destroy*
+    - admin users added to user model & authorized to perform *destroy* action.
+***** Administrative users
+      |-------+---------|
+      | users |         |
+      |-------+---------|
+      | admin | Boolean |
+      |-------+---------|
+      rails generate migration add_admin_to_users admin:boolean
+            invoke  active_record
+            create    db/migrate/20160121023251_add_admin_to_users.rb
+      - add default: false to migration, so will be nil by default:
+        not necessary, but communicates explicit intentions.
+      - bundle exec rake db:migrate
+        == 20160121023251 AddAdminToUsers: migrating ==================================
+        -- add_column(:users, :admin, :boolean, {:default=>false})
+        -> 0.0022s
+        == 20160121023251 AddAdminToUsers: migrated (0.0022s) =========================
+      - bundle exec rake db:migrate:reset
+      - bundle exec rake db:seed
+      - Revisiting strong parameters:
+        - malicious user could make any user admin by sending patch
+          request: patch /users/17?admin=1
+        - but admin is _not_ in list of permitted attributes.
+          So it is important to write an test for any attribute that isn't editable.
+***** The *destroy* action.
+      - add a delete link to _user partial that is visible only to
+        user.admin? users
+      - add a destroy action to the users controller
+      - secure DELETE request by adding before_action to controller
 ***** 
-      
-          
+
