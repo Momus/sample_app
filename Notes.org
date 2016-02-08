@@ -275,7 +275,6 @@ end
         #+END_SRC
 *** The word “deified” is a palindrome.
 
-
 * Chapter 5 Filling in the layout.
   - Incorporate CSS framework into application
   - Add custom stylesheets, links to layout
@@ -588,7 +587,6 @@ Remember: the ":new" refers to the controller method, not the URL routed,
 "GET" is not the HTTP verb here.
 
 * Chapter 6 Modeling Users
-
 *** Database Migrations
 ***** Create Users model                                                  :m:
       rails generate model User name:string email:string
@@ -711,7 +709,6 @@ rails g migration add_password_digest_to_users password_digest:string
 ***** test/models/user_test.rb                                      :m:t:
 
 * Chapter 7 Sign up
-
 *** Showing users
 
 ***** Debug and Rails env
