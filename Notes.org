@@ -1221,5 +1221,50 @@ end
         user.admin? users
       - add a destroy action to the users controller
       - secure DELETE request by adding before_action to controller
-***** 
+* Chapter 10 Account activaton and password reset
+  - Account Activiation :: verifies new user's email address
+  - Password Reset :: alow users to retrive accounts if password lost
+*** Account activaton
+    1. Start Users in an "unactivated" state.
+    2. At sign up, generate activatoin token and corresponding digest
+    3. Save activation digest to db., send email to user with link containing token and email
+    4. On link click, find user by email address, authenticate token.
+    5. If authenticated, change status from "unactivated" to "active."
+    6. Table: 
+      | find by | string           | digest          | authenticaton                      |
+      |---------+------------------+-----------------+------------------------------------|
+      | email   | password         | password_digest | authenticate(pswd)                 |
+      | id      | remember_token   | remember_digest | authenticated?(:remember, token)   |
+      | email   | activation_token | activiation_dig | authenticated?(:activation, token) |
+      | email   | reset_token      | reset_digest    | authenitcated?(:reset, token)      |
 
+***** Account activations resource
+
+******* generate:
+        rails generate controller AccountActivations --no-test-framework
+        Running via Spring preloader in process 28320
+        create  app/controllers/account_activations_controller.rb
+        invoke  erb
+        create    app/views/account_activations
+        invoke  helper
+        create    app/helpers/account_activations_helper.rb
+        invoke  assets
+        invoke    coffee
+        create      app/assets/javascripts/account_activations.coffee
+        invoke    scss
+        create      app/assets/stylesheets/account_activations.scss
+
+        - Adding a resource for account activation
+          #+NAME: routes.rb
+          #+BEGIN_SRC ruby
+          resources :account_activations, only: [:edit]
+          #+END_SRC
+******* TODO Why do we need to generate an entire controller?
+        Only files we need are the actual controller file which we could create.
+******* migration:
+        rails generate migration add activation_to_users activation_digest:string activated:boolean activated_at:datetime
+******* app/models/user.rb Listing 10.3
+******* update seed data and fixtures so sample and test users are initially activated
+        $ bundle exec rake db:migrate:reset
+        $ bundle exec rake db:seed
+***** 
